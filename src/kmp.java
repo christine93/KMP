@@ -1,33 +1,33 @@
-//借鉴博客地址：http://www.cnblogs.com/yjiyjige/p/3263858.html
+//Reference：http://www.cnblogs.com/yjiyjige/p/3263858.html
 public class kmp {
 
-	// 暴力破解法
+	// Brute-Force
 	public static int bf(String str, String sub) {
 		char cstr[] = str.toCharArray();
 		char csub[] = sub.toCharArray();
-		int i = 0; // 主串的位置
-		int j = 0; // 子串的位置
+		int i = 0; // Main String's index
+		int j = 0; // Sub_String's inedx
 		while (i < cstr.length && j < csub.length) {
-			// 如果相等就比较下一个
+			// if equals then compare next character
 			if (cstr[i] == csub[j]) {
 				i++;
 				j++;
 			} else {
-				// 如果不匹配，回归
+				// if not match,the main string's index come back
 				j = 0;
 				i = i - j + 1;
 			}
 		}
-		// 如果发现匹配成功
+		// if successful
 		if (j == csub.length) {
-			// 返回开始匹配的第一个首字母的索引
+			// return the first character's index
 			return i - j;
 		} else {
 			return -1;
 		}
 	}
 
-	// next[j] == k; 求next数组是kmp算法的核心
+	// next[j] == k; how to get the next array is the most important thing in the KMP
 	public static int[] next(String sub) {
 		int next[] = new int[sub.length()];
 		char c[] = sub.toCharArray();
@@ -59,13 +59,13 @@ public class kmp {
 				i++;
 				j++;
 			} else {
-				// i不需要回溯
+				// i needn't to come back
 				j = next[j];
 			}
 		}
-		// 如果发现匹配成功
+		// if successful
 		if (j == c2.length) {
-			// 返回开始匹配的第一个首字母的索引
+			// return the first character's index
 			return i - j;
 		} else {
 			return -1;
@@ -75,9 +75,9 @@ public class kmp {
 	public static void main(String[] args) {
 		String sub = "abca";
 		String str = "ssabcabe";
-		// 暴力破解法
+		//Brute-force
 		System.out.println(bf(str, sub));
-		// kmp算法
+		// kmp
 		System.out.println(kmp(str, sub));
 	}
 }
